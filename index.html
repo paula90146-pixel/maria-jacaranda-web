@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="María Jacaranda - Vidente y Astróloga con 30 años de experiencia. Tarot, piedras sagradas, talismanes, cartas astrales.">
+    <title>María Jacaranda | Vidente & Astróloga</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #050010;
+            --bg2: #0d001f;
+            --card: #110020;
+            --purple: #7c3aed;
+            --purple-light: #a855f7;
+            --gold: #d4af37;
+            --pink: #ec4899;
+            --text: #f0e8ff;
+            --text-muted: #9d8ab5;
+            --border: rgba(212,175,55,0.2);
+            --wa: #25D366;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Raleway', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        #stars-canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+
+        /* NAV */
+        nav {
+            position: fixed; top:0; width:100%; z-index:1000;
+            padding: 0.9rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(5,0,16,0.92); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border); transition: background 0.3s;
+        }
+        .nav-logo { font-family:'Cinzel',serif; font-size:1.2rem; color:var(--gold); text-decoration:none; letter-spacing:2px; }
+        .nav-links { display:flex; gap:1.5rem; list-style:none; align-items:center; }
+        .nav-links a { color:var(--text-muted); text-decoration:none; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; transition:color 0.3s; }
+        .nav-links a:hover { color:var(--gold); }
+        .nav-cta { background:linear-gradient(135deg,var(--gold),#b8962e) !important; color:#000 !important; padding:0.45rem 1.1rem !important; border-radius:25px !important; font-weight:700 !important; }
+        .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
+        .hamburger span { width:25px; height:2px; background:var(--gold); border-radius:2px; display:block; }
+
+        /* WHATSAPP FLOAT */
+        .wa-float {
+            position: fixed; bottom:2rem; right:2rem; z-index:999;
+            width:58px; height:58px; border-radius:50%;
+            background: var(--wa);
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.7rem; text-decoration:none;
+            box-shadow: 0 6px 25px rgba(37,211,102,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: waPulse 2.5s ease-in-out infinite;
+        }
+        .wa-float:hover { transform:scale(1.1); box-shadow:0 10px 35px rgba(37,211,102,0.6); }
+        @keyframes waPulse {
+            0%,100% { box-shadow:0 6px 25px rgba(37,211,102,0.4); }
+            50% { box-shadow:0 6px 35px rgba(37,211,102,0.7); }
+        }
+
+        /* MOBILE MENU */
+        #mobile-menu { display:none; position:fixed; top:65px; left:0; width:100%; background:rgba(5,0,16,0.98); z-index:999; padding:2rem; border-bottom:1px solid var(--border); }
+
+        /* SECTIONS */
+        section { position:relative; z-index:1; }
+        .section-header { text-align:center; margin-bottom:4rem; }
+        .section-label { font-size:0.72rem; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:1rem; }
+        .section-title { font-family:'Cinzel',serif; font-size:clamp(1.9rem,5vw,3rem); color:var(--text); margin-bottom:1rem; line-height:1.2; }
+        .section-divider { width:60px; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:1.5rem auto; }
+        .section-subtitle { color:var(--text-muted); font-size:1rem; max-width:600px; margin:0 auto; line-height:1.8; }
+
+        /* BUTTONS */
+        .btn-primary { background:linear-gradient(135deg,var(--gold),#b8962e); color:#000; padding:1rem 2.5rem; border-radius:50px; font-weight:700; font-size:0.95rem; text-decoration:none; letter-spacing:1px; transition:all 0.3s; border:none; cursor:pointer; display:inline-block; }
+        .btn-primary:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(212,175,55,0.4); }
+        .btn-secondary { background:transparent; color:var(--text); padding:1rem 2.5rem; border-radius:50px; font-weight:600; font-size:0.95rem; text-decoration:none; letter-spacing:1px; transition:all 0.3s; border:1px solid rgba(240,232,255,0.3); cursor:pointer; display:inline-block; }
+        .btn-secondary:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+
+        /* HERO */
+        #hero {
+            min-height:100vh; display:flex; align-items:center; justify-content:center;
+            padding:8rem 2rem 6rem; text-align:center;
+            background:radial-gradient(ellipse at center top, #2d0055 0%, var(--bg) 70%);
+            position:relative; overflow:hidden;
+        }
+        .hero-orb { position:absolute; border-radius:50%; filter:blur(80px); opacity:0.15; pointer-events:none; }
+        .hero-orb-1 { width:500px; height:500px; background:var(--purple); top:-100px; left:-100px; }
+        .hero-orb-2 { width:400px; height:400px; background:var(--gold); bottom:-50px; right:-50px; }
+        .hero-badge { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(212,175,55,0.1); border:1px solid var(--border); padding:0.4rem 1.2rem; border-radius:25px; font-size:0.78rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:2rem; }
+        .hero-name { font-family:'Cinzel',serif; font-size:clamp(3rem,10vw,7rem); font-weight:900; background:linear-gradient(135deg,#fff 0%,var(--gold) 50%,var(--purple-light) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:0.8rem; line-height:1; }
+        .hero-title { font-size:0.9rem; letter-spacing:6px; text-transform:uppercase; color:var(--text-muted); margin-bottom:2rem; }
+        .hero-slogan { font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.2rem,3vw,1.8rem); color:var(--text); max-width:550px; margin:0 auto 3rem; line-height:1.6; }
+        .hero-slogan span { color:var(--gold); }
+        .hero-ctas { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-bottom:4rem; }
+        .hero-stats { display:flex; gap:3rem; justify-content:center; flex-wrap:wrap; }
+        .hero-stat { text-align:center; }
+        .hero-stat-number { font-family:'Cinzel',serif; font-size:2.2rem; font-weight:700; color:var(--gold); display:block; }
+        .hero-stat-label { font-size:0.68rem; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); }
+        .scroll-indicator { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:0.5rem; color:var(--text-muted); font-size:0.62rem; letter-spacing:3px; animation:bounce 2s infinite; }
+        .scroll-indicator::after { content:''; width:1px; height:40px; background:linear-gradient(to bottom,var(--gold),transparent); }
+        @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+        /* ABOUT */
+        #about { padding:8rem 2rem; background:var(--bg2); }
+        .about-container { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+        .about-image-wrapper { position:relative; }
+        .about-image-box { width:100%; aspect-ratio:3/4; background:linear-gradient(135deg,#1a0035,#2d0055); border-radius:20px; border:1px solid var(--border); overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+        .about-image-box img { width:100%; height:100%; object-fit:cover; border-radius:20px; }
+        .about-placeholder-fallback { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; font-size:5rem; }
+        .about-placeholder-text { font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); }
+        .about-badge { position:absolute; bottom:-15px; right:-15px; background:linear-gradient(135deg,var(--gold),#b8962e); width:110px; height:110px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#000; box-shadow:0 10px 30px rgba(212,175,55,0.3); }
+        .about-badge-number { font-family:'Cinzel',serif; font-size:2.2rem; font-weight:900; line-height:1; }
+        .about-badge-text { font-size:0.6rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; text-align:center; }
+        .about-content h2 { font-family:'Cinzel',serif; font-size:clamp(1.8rem,4vw,2.6rem); color:var(--text); margin-bottom:1.5rem; line-height:1.3; }
+        .about-content h2 span { color:var(--gold); }
+        .about-content p { color:var(--text-muted); line-height:1.9; margin-bottom:1.5rem; font-size:1rem; }
+        .about-features { display:flex; flex-direction:column; gap:0.8rem; margin-top:2rem; }
+        .about-feature { display:flex; align-items:center; gap:1rem; }
+        .about-feature-icon { width:40px; height:40px; background:rgba(212,175,55,0.1); border:1px solid var(--border); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+        .about-feature-text { color:var(--text-muted); font-size:0.9rem; }
+
+        /* TV */
+        #tv { padding:6rem 2rem; background:var(--bg); }
+        .tv-grid { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.5rem; }
+        .tv-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:2rem; text-align:center; transition:all 0.3s; }
+        .tv-card:hover { transform:translateY(-4px); border-color:rgba(212,175,55,0.4); }
+        .tv-card-icon { font-size:2.5rem; margin-bottom:1rem; display:block; }
+        .tv-card-title { font-family:'Cinzel',serif; font-size:1rem; color:var(--text); margin-bottom:0.5rem; }
+        .tv-card-desc { color:var(--text-muted); font-size:0.85rem; line-height:1.6; }
+
+        /* SERVICES */
+        #servicios { padding:8rem 2rem; background:var(--bg2); }
+        .services-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
+        .service-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2.5rem; transition:all 0.3s; position:relative; overflow:hidden; }
+        .service-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); transform:scaleX(0); transition:transform 0.3s; }
+        .service-card:hover::before { transform:scaleX(1); }
+        .service-card:hover { transform:translateY(-5px); border-color:rgba(212,175,55,0.4); box-shadow:0 20px 40px rgba(0,0,0,0.3); }
+        .service-card.featured { border-color:rgba(212,175,55,0.5); background:linear-gradient(135deg,#1a0035,#110020); }
+        .service-badge { display:inline-block; padding:0.2rem 0.8rem; border-radius:20px; font-size:0.68rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:1.5rem; }
+        .badge-new { background:rgba(236,72,153,0.15); color:var(--pink); border:1px solid rgba(236,72,153,0.3); }
+        .badge-popular { background:rgba(212,175,55,0.15); color:var(--gold); border:1px solid var(--border); }
+        .badge-signature { background:rgba(124,58,237,0.15); color:var(--purple-light); border:1px solid rgba(124,58,237,0.3); }
+        .badge-digital { background:rgba(34,197,94,0.15); color:#4ade80; border:1px solid rgba(34,197,94,0.3); }
+        .service-icon { font-size:2.5rem; margin-bottom:1rem; display:block; }
+        .service-name { font-family:'Cinzel',serif; font-size:1.15rem; color:var(--text); margin-bottom:0.5rem; }
+        .service-description { color:var(--text-muted); font-size:0.87rem; line-height:1.7; margin-bottom:1.5rem; }
+        .service-price { font-family:'Cinzel',serif; font-size:1.7rem; color:var(--gold); font-weight:700; margin-bottom:1.5rem; }
+        .service-price span { font-size:0.82rem; color:var(--text-muted); font-family:'Raleway',sans-serif; font-weight:400; }
+        .service-features { list-style:none; margin-bottom:2rem; }
+        .service-features li { color:var(--text-muted); font-size:0.83rem; padding:0.3rem 0; display:flex; align-items:center; gap:0.5rem; }
+        .service-features li::before { content:'✦'; color:var(--gold); font-size:0.6rem; }
+        .service-cta { display:block; text-align:center; padding:0.8rem; border-radius:12px; font-weight:700; font-size:0.87rem; letter-spacing:1px; text-decoration:none; transition:all 0.3s; cursor:pointer; border:none; width:100%; font-family:'Raleway',sans-serif; }
+        .cta-gold { background:linear-gradient(135deg,var(--gold),#b8962e); color:#000; }
+        .cta-gold:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(212,175,55,0.3); }
+        .cta-outline { background:transparent; border:1px solid rgba(212,175,55,0.4) !important; color:var(--gold); }
+        .cta-outline:hover { background:rgba(212,175,55,0.1); }
+        .cta-wa { background:var(--wa); color:#fff; }
+        .cta-wa:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(37,211,102,0.3); }
+
+        /* TALISMANES */
+        #talismanes { padding:8rem 2rem; background:var(--bg); }
+        .talismanes-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:1.5rem; }
+        .talismane-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2rem; transition:all 0.3s; text-align:center; position:relative; overflow:hidden; }
+        .talismane-card::after { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at top, rgba(212,175,55,0.04), transparent); opacity:0; transition:opacity 0.3s; }
+        .talismane-card:hover::after { opacity:1; }
+        .talismane-card:hover { transform:translateY(-5px); border-color:rgba(212,175,55,0.4); }
+        .talismane-icon { font-size:2.8rem; margin-bottom:1rem; display:block; }
+        .talismane-name { font-family:'Cinzel',serif; font-size:1rem; color:var(--gold); margin-bottom:0.5rem; }
+        .talismane-power { font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color:var(--purple-light); margin-bottom:0.8rem; }
+        .talismane-desc { color:var(--text-muted); font-size:0.85rem; line-height:1.7; }
+
+        /* NEWSLETTER */
+        #newsletter { padding:8rem 2rem; background:linear-gradient(180deg, var(--bg2) 0%, #1a0035 50%, var(--bg2) 100%); }
+        .newsletter-box { max-width:750px; margin:0 auto; background:rgba(13,0,31,0.8); border:1px solid rgba(212,175,55,0.4); border-radius:28px; padding:4rem 3rem; text-align:center; backdrop-filter:blur(20px); position:relative; overflow:hidden; }
+        .newsletter-box::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at center, rgba(124,58,237,0.04) 0%, transparent 70%); animation:rotateGlow 20s linear infinite; }
+        @keyframes rotateGlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        .newsletter-gift { font-size:3.5rem; margin-bottom:1.5rem; display:block; animation:floatGem 3s ease-in-out infinite; }
+        @keyframes floatGem { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+        .newsletter-box h2 { font-family:'Cinzel',serif; font-size:clamp(1.5rem,4vw,2.2rem); color:var(--text); margin-bottom:1rem; position:relative; z-index:1; }
+        .newsletter-box h2 span { color:var(--gold); }
+        .newsletter-box p { color:var(--text-muted); line-height:1.8; margin-bottom:2rem; position:relative; z-index:1; }
+        .newsletter-perks { display:flex; flex-wrap:wrap; gap:0.8rem; justify-content:center; margin-bottom:2.5rem; position:relative; z-index:1; }
+        .newsletter-perk { padding:0.4rem 1rem; background:rgba(212,175,55,0.08); border:1px solid var(--border); border-radius:25px; font-size:0.8rem; color:var(--text-muted); }
+        .newsletter-perk span { color:var(--gold); }
+        .nl-form { display:flex; flex-direction:column; gap:1rem; position:relative; z-index:1; }
+        .nl-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .nl-input { background:rgba(255,255,255,0.05); border:1px solid rgba(212,175,55,0.2); border-radius:12px; padding:0.85rem 1.2rem; color:var(--text); font-family:'Raleway',sans-serif; font-size:0.95rem; transition:border-color 0.3s; }
+        .nl-input:focus { outline:none; border-color:var(--gold); }
+        .nl-input::placeholder { color:var(--text-muted); }
+        .nl-submit { background:linear-gradient(135deg,var(--gold),#b8962e); border:none; color:#000; padding:1rem; border-radius:12px; font-family:'Cinzel',serif; font-size:0.95rem; font-weight:700; letter-spacing:2px; cursor:pointer; transition:all 0.3s; }
+        .nl-submit:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(212,175,55,0.4); }
+        .nl-success { display:none; padding:2rem; }
+        .nl-success-icon { font-size:3rem; margin-bottom:1rem; display:block; }
+        .nl-success h3 { font-family:'Cinzel',serif; color:var(--gold); font-size:1.4rem; margin-bottom:0.8rem; }
+        .nl-success p { color:var(--text-muted); font-size:0.9rem; line-height:1.7; }
+        .nl-disclaimer { font-size:0.72rem; color:var(--text-muted); margin-top:1rem; opacity:0.6; }
+
+        /* ORACLE */
+        #oraculo { padding:8rem 2rem; background:var(--bg); }
+        .oracle-container { max-width:680px; margin:0 auto; }
+        .oracle-crystal { font-size:4rem; text-align:center; display:block; margin-bottom:-10px; animation:floatGem 3s ease-in-out infinite; position:relative; z-index:1; }
+        .oracle-panel { background:rgba(13,0,31,0.85); border:1px solid rgba(212,175,55,0.35); border-radius:24px; overflow:hidden; position:relative; }
+        .oracle-panel::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at center, rgba(124,58,237,0.04) 0%, transparent 70%); animation:rotateGlow 20s linear infinite; pointer-events:none; }
+        .oracle-header { padding:2rem 2rem 1.5rem; text-align:center; border-bottom:1px solid rgba(212,175,55,0.15); position:relative; z-index:1; }
+        .oracle-header h2 { font-family:'Cinzel',serif; font-size:1.6rem; color:var(--gold); margin-bottom:0.3rem; }
+        .oracle-header p { color:var(--text-muted); font-size:0.88rem; font-style:italic; }
+        .oracle-chat { padding:1.5rem; min-height:180px; display:flex; flex-direction:column; gap:1rem; max-height:320px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--border) transparent; position:relative; z-index:1; }
+        .oracle-msg { display:flex; align-items:flex-start; gap:0.8rem; }
+        .oracle-msg-avatar { width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,rgba(212,175,55,0.2),rgba(124,58,237,0.2)); border:1px solid rgba(212,175,55,0.3); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+        .oracle-msg-bubble { background:rgba(255,255,255,0.03); border:1px solid rgba(212,175,55,0.12); border-radius:4px 16px 16px 16px; padding:0.9rem 1.1rem; font-size:0.95rem; line-height:1.7; color:var(--text); font-style:italic; flex:1; }
+        .oracle-msg-bubble.user { background:rgba(124,58,237,0.08); border-color:rgba(124,58,237,0.2); border-radius:16px 4px 16px 16px; font-style:normal; align-self:flex-end; max-width:85%; }
+        .oracle-msg.user-row { justify-content:flex-end; }
+        .oracle-typing { display:none; align-items:center; gap:0.8rem; }
+        .oracle-typing.show { display:flex; }
+        .oracle-dots { display:flex; gap:4px; align-items:center; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:4px 16px 16px 16px; padding:0.9rem 1.1rem; }
+        .oracle-dot { width:6px; height:6px; border-radius:50%; background:var(--gold); opacity:0.4; animation:dotBounce 1.2s ease-in-out infinite; }
+        .oracle-dot:nth-child(2) { animation-delay:0.15s; background:var(--purple-light); }
+        .oracle-dot:nth-child(3) { animation-delay:0.3s; background:var(--pink); }
+        @keyframes dotBounce { 0%,60%,100%{transform:translateY(0);opacity:0.4} 30%{transform:translateY(-6px);opacity:1} }
+        .oracle-cta-bubble { margin-top:0.5rem; padding:1rem 1.2rem; background:rgba(212,175,55,0.05); border:1px solid rgba(212,175,55,0.2); border-radius:12px; text-align:center; }
+        .oracle-cta-bubble p { font-size:0.83rem; color:var(--text-muted); font-style:italic; margin-bottom:0.8rem; }
+        .oracle-cta-btn { display:inline-block; padding:0.6rem 1.5rem; background:linear-gradient(135deg,var(--gold),#b8962e); color:#000; border-radius:8px; font-weight:700; font-size:0.8rem; text-decoration:none; transition:all 0.3s; }
+        .oracle-cta-btn:hover { transform:translateY(-2px); }
+        .oracle-input-area { padding:1.2rem 1.5rem 1.5rem; border-top:1px solid rgba(212,175,55,0.12); position:relative; z-index:1; }
+        .oracle-cats { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:1rem; }
+        .oracle-cat { padding:0.35rem 1rem; border-radius:20px; border:1px solid rgba(212,175,55,0.25); background:transparent; color:var(--text-muted); font-size:0.8rem; cursor:pointer; transition:all 0.3s; font-family:'Raleway',sans-serif; }
+        .oracle-cat:hover, .oracle-cat.active { background:rgba(212,175,55,0.12); border-color:var(--gold); color:var(--gold); }
+        .oracle-input-row { display:flex; gap:0.7rem; }
+        .oracle-input { flex:1; background:rgba(255,255,255,0.04); border:1px solid rgba(212,175,55,0.2); border-radius:12px; padding:0.75rem 1rem; color:var(--text); font-family:'Raleway',sans-serif; font-size:0.9rem; transition:border-color 0.3s; resize:none; height:46px; }
+        .oracle-input:focus { outline:none; border-color:var(--gold); }
+        .oracle-input::placeholder { color:var(--text-muted); }
+        .oracle-send { width:46px; height:46px; background:linear-gradient(135deg,var(--purple),var(--gold)); border:none; border-radius:12px; color:#fff; font-size:1.2rem; cursor:pointer; transition:all 0.3s; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
+        .oracle-send:hover { transform:scale(1.05); }
+        .oracle-send:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+        .oracle-limit-note { font-size:0.72rem; color:var(--text-muted); text-align:center; margin-top:0.7rem; opacity:0.6; }
+
+        /* RETOS */
+        #retos { padding:8rem 2rem; background:var(--bg2); }
+        .retos-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2rem; }
+        .reto-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2.5rem; text-align:center; transition:all 0.3s; position:relative; overflow:hidden; }
+        .reto-card:hover { transform:translateY(-5px); border-color:rgba(212,175,55,0.5); }
+        .reto-number { font-family:'Cinzel',serif; font-size:4rem; color:rgba(212,175,55,0.06); position:absolute; top:0.5rem; right:1rem; font-weight:900; line-height:1; }
+        .reto-icon { font-size:3rem; margin-bottom:1rem; display:block; }
+        .reto-duration { display:inline-block; padding:0.2rem 0.8rem; border-radius:20px; background:rgba(212,175,55,0.1); border:1px solid var(--border); color:var(--gold); font-size:0.72rem; letter-spacing:1px; text-transform:uppercase; margin-bottom:1rem; }
+        .reto-title { font-family:'Cinzel',serif; font-size:1.15rem; color:var(--text); margin-bottom:1rem; }
+        .reto-description { color:var(--text-muted); font-size:0.87rem; line-height:1.7; margin-bottom:2rem; }
+        .reto-btn { display:inline-block; padding:0.7rem 2rem; border-radius:25px; border:1px solid rgba(212,175,55,0.4); color:var(--gold); font-size:0.83rem; font-weight:600; text-decoration:none; transition:all 0.3s; cursor:pointer; background:transparent; font-family:'Raleway',sans-serif; }
+        .reto-btn:hover { background:rgba(212,175,55,0.1); transform:translateY(-2px); }
+
+        /* TESTIMONIOS */
+        #testimonios { padding:8rem 2rem; background:var(--bg); }
+        .testimonios-grid { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:2rem; }
+        .testimonio-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2.5rem; transition:all 0.3s; }
+        .testimonio-card:hover { transform:translateY(-4px); border-color:rgba(212,175,55,0.4); }
+        .testimonio-stars { color:var(--gold); font-size:1.1rem; margin-bottom:1rem; letter-spacing:3px; }
+        .testimonio-text { font-family:'Playfair Display',serif; font-style:italic; color:var(--text); font-size:0.97rem; line-height:1.8; margin-bottom:1.5rem; }
+        .testimonio-author { display:flex; align-items:center; gap:0.8rem; }
+        .testimonio-avatar { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,rgba(212,175,55,0.2),rgba(124,58,237,0.2)); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
+        .testimonio-name { font-weight:700; font-size:0.9rem; color:var(--text); }
+        .testimonio-role { font-size:0.75rem; color:var(--text-muted); }
+        .celebrity-badge { display:inline-block; padding:0.15rem 0.6rem; background:rgba(212,175,55,0.15); border:1px solid var(--border); border-radius:10px; font-size:0.65rem; color:var(--gold); letter-spacing:1px; text-transform:uppercase; margin-left:0.5rem; vertical-align:middle; }
+
+        /* AGENDA */
+        #agenda { padding:8rem 2rem; background:var(--bg2); }
+        .agenda-container { max-width:800px; margin:0 auto; }
+        .agenda-card { background:var(--card); border:1px solid var(--border); border-radius:24px; overflow:hidden; }
+        .agenda-steps { display:flex; border-bottom:1px solid var(--border); }
+        .agenda-step { flex:1; text-align:center; padding:1rem 0.5rem; font-size:0.68rem; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); border-right:1px solid var(--border); transition:all 0.3s; }
+        .agenda-step:last-child { border-right:none; }
+        .agenda-step.active { color:var(--gold); background:rgba(212,175,55,0.05); }
+        .agenda-step span { display:block; font-size:1.1rem; margin-bottom:0.3rem; }
+        .agenda-panels { padding:2.5rem; }
+        .agenda-panel { display:none; }
+        .agenda-panel.active { display:block; }
+        .calendar-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; }
+        .cal-month { font-family:'Cinzel',serif; font-size:1.1rem; color:var(--text); }
+        .cal-nav { background:transparent; border:1px solid var(--border); color:var(--text-muted); width:35px; height:35px; border-radius:8px; cursor:pointer; font-size:1rem; transition:all 0.3s; }
+        .cal-nav:hover { border-color:var(--gold); color:var(--gold); }
+        .calendar-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:0.25rem; }
+        .cal-day-name { text-align:center; font-size:0.63rem; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); padding:0.5rem 0; }
+        .cal-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:0.82rem; cursor:pointer; transition:all 0.2s; color:var(--text-muted); }
+        .cal-day:hover:not(.disabled) { background:rgba(212,175,55,0.1); color:var(--gold); }
+        .cal-day.selected { background:var(--gold); color:#000; font-weight:700; }
+        .cal-day.today { color:var(--purple-light); font-weight:600; }
+        .cal-day.disabled { opacity:0.2; cursor:not-allowed; }
+        .time-slots { margin-top:1.5rem; }
+        .time-label { font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:1rem; }
+        .time-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0.5rem; }
+        .time-btn { padding:0.6rem; border:1px solid var(--border); border-radius:8px; background:transparent; color:var(--text-muted); font-size:0.78rem; cursor:pointer; transition:all 0.2s; font-family:'Raleway',sans-serif; }
+        .time-btn:hover:not(.unavailable) { border-color:var(--gold); color:var(--gold); }
+        .time-btn.selected { background:rgba(212,175,55,0.2); border-color:var(--gold); color:var(--gold); }
+        .time-btn.unavailable { opacity:0.25; cursor:not-allowed; text-decoration:line-through; }
+        .booking-form { display:flex; flex-direction:column; gap:1rem; }
+        .form-group { display:flex; flex-direction:column; gap:0.4rem; }
+        .form-label { font-size:0.72rem; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); }
+        .form-input, .form-select { background:rgba(255,255,255,0.05); border:1px solid rgba(212,175,55,0.2); border-radius:10px; padding:0.8rem 1rem; color:var(--text); font-family:'Raleway',sans-serif; font-size:0.9rem; transition:border-color 0.3s; }
+        .form-input:focus, .form-select:focus { outline:none; border-color:var(--gold); }
+        .form-select option { background:var(--bg2); }
+        .agenda-btn { padding:1rem; border-radius:12px; border:none; font-family:'Raleway',sans-serif; font-size:0.92rem; font-weight:700; cursor:pointer; transition:all 0.3s; }
+        .agenda-btn-primary { background:linear-gradient(135deg,var(--gold),#b8962e); color:#000; }
+        .agenda-btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(212,175,55,0.3); }
+        .agenda-btn-back { background:transparent; border:1px solid var(--border) !important; color:var(--text-muted); }
+        .agenda-btn-back:hover { border-color:var(--gold) !important; color:var(--gold); }
+
+        /* CONTACT */
+        #contacto { padding:8rem 2rem; background:var(--bg); }
+        .contact-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+        .contact-info h3 { font-family:'Cinzel',serif; font-size:1.8rem; color:var(--text); margin-bottom:1rem; }
+        .contact-info p { color:var(--text-muted); line-height:1.8; margin-bottom:2rem; }
+        .contact-items { display:flex; flex-direction:column; gap:1.2rem; }
+        .contact-item { display:flex; align-items:center; gap:1rem; }
+        .contact-item-icon { width:48px; height:48px; background:rgba(212,175,55,0.1); border:1px solid var(--border); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+        .contact-item-label { font-size:0.68rem; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.2rem; }
+        .contact-item-value { font-size:0.95rem; color:var(--text); font-weight:600; }
+        .contact-item-note { font-size:0.72rem; color:var(--text-muted); }
+        .social-links { display:flex; flex-direction:column; gap:0.9rem; }
+        .social-link { display:flex; align-items:center; gap:1rem; padding:0.9rem 1.3rem; background:var(--card); border:1px solid var(--border); border-radius:12px; text-decoration:none; transition:all 0.3s; }
+        .social-link:hover { border-color:rgba(212,175,55,0.4); transform:translateX(5px); }
+        .social-link-icon { font-size:1.4rem; }
+        .social-link-info { flex:1; }
+        .social-link-name { font-size:0.88rem; font-weight:600; color:var(--text); }
+        .social-link-handle { font-size:0.77rem; color:var(--text-muted); }
+        .live-schedule { background:var(--card); border:1px solid rgba(212,175,55,0.3); border-radius:16px; padding:1.5rem; margin-top:1.5rem; }
+        .live-badge { display:inline-flex; align-items:center; gap:0.4rem; background:rgba(236,72,153,0.15); border:1px solid rgba(236,72,153,0.3); padding:0.3rem 0.8rem; border-radius:20px; font-size:0.68rem; color:var(--pink); letter-spacing:1px; text-transform:uppercase; margin-bottom:0.8rem; }
+        .live-dot { width:6px; height:6px; background:var(--pink); border-radius:50%; animation:pulseAnim 1.5s ease-in-out infinite; }
+        @keyframes pulseAnim { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .live-schedule h4 { font-family:'Cinzel',serif; font-size:1rem; color:var(--text); margin-bottom:0.5rem; }
+        .live-schedule p { color:var(--text-muted); font-size:0.87rem; line-height:1.7; }
+
+        /* FOOTER */
+        footer { background:#020008; border-top:1px solid var(--border); padding:4rem 2rem 2rem; text-align:center; position:relative; z-index:1; }
+        .footer-logo { font-family:'Cinzel',serif; font-size:1.8rem; color:var(--gold); letter-spacing:3px; margin-bottom:0.5rem; }
+        .footer-tagline { color:var(--text-muted); font-style:italic; margin-bottom:2rem; font-family:'Playfair Display',serif; }
+        .footer-links { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:2rem; }
+        .footer-links a { color:var(--text-muted); text-decoration:none; font-size:0.8rem; letter-spacing:1px; transition:color 0.3s; }
+        .footer-links a:hover { color:var(--gold); }
+        .footer-divider { width:100%; height:1px; background:var(--border); margin:2rem 0; }
+        .footer-bottom { color:var(--text-muted); font-size:0.78rem; line-height:1.9; }
+
+        /* REVEAL */
+        .reveal { opacity:0; transform:translateY(30px); transition:all 0.8s ease; }
+        .reveal.revealed { opacity:1; transform:translateY(0); }
+        .reveal-left { opacity:0; transform:translateX(-30px); transition:all 0.8s ease; }
+        .reveal-left.revealed { opacity:1; transform:translateX(0); }
+        .reveal-right { opacity:0; transform:translateX(30px); transition:all 0.8s ease; }
+        .reveal-right.revealed { opacity:1; transform:translateX(0); }
+
+        /* MODAL */
+        .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; padding:1rem; }
+        .modal-overlay.open { display:flex; }
+        .modal-box { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:2.5rem; max-width:440px; width:100%; text-align:center; animation:fadeUp 0.3s ease; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:translateY(0)} }
+        .modal-icon { font-size:3rem; margin-bottom:1rem; }
+        .modal-title { font-family:'Cinzel',serif; color:var(--gold); font-size:1.25rem; margin-bottom:1rem; }
+        .modal-text { color:var(--text-muted); line-height:1.7; font-size:0.88rem; margin-bottom:1.5rem; }
+        .modal-socials { display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; margin-bottom:1rem; }
+        .modal-social-btn { padding:0.6rem 1.3rem; color:white; border-radius:10px; text-decoration:none; font-weight:600; font-size:0.82rem; transition:opacity 0.3s; }
+        .modal-social-btn:hover { opacity:0.85; }
+        .modal-close { background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:0.83rem; padding:0.5rem; }
+
+        /* RESPONSIVE */
+        @media (max-width:900px) {
+            .about-container, .contact-grid { grid-template-columns:1fr; }
+            .nl-row { grid-template-columns:1fr; }
+        }
+        @media (max-width:768px) {
+            .nav-links { display:none; }
+            .hamburger { display:flex; }
+            .time-grid { grid-template-columns:repeat(3,1fr); }
+            .agenda-steps { display:none; }
+        }
+        @media (max-width:480px) {
+            .hero-stats { gap:1.5rem; }
+            .hero-ctas { flex-direction:column; align-items:stretch; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/34617317265?text=Hola%20María%2C%20me%20gustaría%20información%20sobre%20tus%20consultas." target="_blank" class="wa-float" title="Escríbeme por WhatsApp">💬</a>
+
+<!-- NAV -->
+<nav id="navbar">
+    <a href="#hero" class="nav-logo">✦ MARÍA JACARANDA</a>
+    <ul class="nav-links">
+        <li><a href="#about">Sobre Mí</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#talismanes">Talismanes</a></li>
+        <li><a href="#oraculo">Oráculo</a></li>
+        <li><a href="#agenda">Agenda</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="tel:806416365" class="nav-cta">📞 806 41 63 65</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menú"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:1.5rem;">
+        <li><a href="#about" onclick="closeMenu()" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;">Sobre Mí</a></li>
+        <li><a href="#servicios" onclick="closeMenu()" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;">Servicios</a></li>
+        <li><a href="#talismanes" onclick="closeMenu()" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;">Talismanes</a></li>
+        <li><a href="#oraculo" onclick="closeMenu()" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;">Oráculo</a></li>
+        <li><a href="#agenda" onclick="closeMenu()" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;">Agenda</a></li>
+        <li><a href="#contacto" onclick="closeMenu()" style="color:var(--text-muted);text-decoration:none;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;">Contacto</a></li>
+        <li><a href="tel:806416365" style="display:block;text-align:center;padding:1rem;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;border-radius:12px;font-weight:700;text-decoration:none;">📞 806 41 63 65</a></li>
+    </ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div>
+        <div class="hero-badge">✦ Vidente &amp; Astróloga · 30 Años de Experiencia ✦</div>
+        <h1 class="hero-name">María Jacaranda</h1>
+        <p class="hero-title">Astrología · Tarot · Piedras Sagradas</p>
+        <p class="hero-slogan">"Tu destino está escrito.<br><span>Yo te lo leo."</span></p>
+        <div class="hero-ctas">
+            <a href="tel:806416365" class="btn-primary">📞 Llamar · 806 41 63 65</a>
+            <a href="#agenda" class="btn-secondary">✨ Agendar Consulta</a>
+        </div>
+        <div class="hero-stats">
+            <div class="hero-stat"><span class="hero-stat-number">30</span><span class="hero-stat-label">Años de experiencia</span></div>
+            <div class="hero-stat"><span class="hero-stat-number">+8K</span><span class="hero-stat-label">Seguidores en redes</span></div>
+            <div class="hero-stat"><span class="hero-stat-number">TV</span><span class="hero-stat-label">Presencia televisiva</span></div>
+            <div class="hero-stat"><span class="hero-stat-number">2×</span><span class="hero-stat-label">Directos semanales</span></div>
+        </div>
+    </div>
+    <div class="scroll-indicator">SCROLL</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="about-container">
+        <div class="about-image-wrapper reveal-left">
+            <div class="about-image-box">
+                <img src="assets/maria-perfil.jpg" alt="María Jacaranda"
+                     onerror="this.src='assets/maria-placeholder.svg';this.onerror=null;">
+            </div>
+            <div class="about-badge"><span class="about-badge-number">30</span><span class="about-badge-text">Años</span></div>
+        </div>
+        <div class="about-content reveal-right">
+            <div class="section-label">Mi historia</div>
+            <h2>Tres décadas guiando almas hacia <span>su verdad</span></h2>
+            <p>Soy María Jacaranda, vidente y astróloga con más de 30 años iluminando el camino de miles de personas. Lo que empezó como un don natural me llevó a los platós de televisión y hoy a las pantallas de quienes me buscan desde cualquier rincón.</p>
+            <p>Mi especialidad va más allá de las cartas: trabajo con el poder de las <strong style="color:var(--gold)">piedras y cristales sagrados</strong> para canalizar la energía del universo. Cada piedra vibra con una frecuencia única que me ayuda a leer tu camino con una claridad que pocas veces encontrarás.</p>
+            <div class="about-features">
+                <div class="about-feature"><div class="about-feature-icon">💎</div><span class="about-feature-text">Especialista en piedras y cristales sagrados — su sello único</span></div>
+                <div class="about-feature"><div class="about-feature-icon">📺</div><span class="about-feature-text">Trayectoria en programas de televisión nacionales</span></div>
+                <div class="about-feature"><div class="about-feature-icon">🌙</div><span class="about-feature-text">Directos cada Martes y Jueves de 19:00 a 20:00h en redes</span></div>
+                <div class="about-feature"><div class="about-feature-icon">🎙️</div><span class="about-feature-text">Podcast disponible en Spotify</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TV -->
+<section id="tv">
+    <div class="section-header reveal">
+        <div class="section-label">Trayectoria</div>
+        <h2 class="section-title">María en los Medios</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">30 años llevando la astrología y la videncia a todos los rincones</p>
+    </div>
+    <div class="tv-grid">
+        <div class="tv-card reveal"><span class="tv-card-icon">📺</span><h3 class="tv-card-title">Programas de TV</h3><p class="tv-card-desc">Presencia en programas de televisión nacionales. Su don y experiencia llegaron a millones de hogares.</p></div>
+        <div class="tv-card reveal"><span class="tv-card-icon">📻</span><h3 class="tv-card-title">Radio &amp; Podcast</h3><p class="tv-card-desc">Podcast propio disponible en Spotify. Consejos, predicciones y rituales para escuchar cuando quieras.</p></div>
+        <div class="tv-card reveal"><span class="tv-card-icon">📱</span><h3 class="tv-card-title">Directo en Redes</h3><p class="tv-card-desc">Martes y Jueves de 19 a 20h en Instagram y Facebook. Consultas en directo y rituales en vivo.</p></div>
+        <div class="tv-card reveal"><span class="tv-card-icon">⭐</span><h3 class="tv-card-title">Personalidades</h3><p class="tv-card-desc">Sus talismanes han llegado a deportistas, políticos, empresarios y personalidades de la televisión.</p></div>
+    </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+    <div class="section-header reveal">
+        <div class="section-label">Tienda & Servicios</div>
+        <h2 class="section-title">¿Qué necesita tu alma hoy?</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Consultas personalizadas para guiar tu camino</p>
+    </div>
+    <div class="services-grid">
+        <div class="service-card reveal">
+            <span class="service-badge badge-popular">⭐ Popular</span>
+            <span class="service-icon">📞</span>
+            <h3 class="service-name">Consulta Privada por Teléfono</h3>
+            <p class="service-description">Habla directamente con María. Todos los días de 12:00 a 14:00h en su línea privada.</p>
+            <div class="service-price">806 41 63 65 <span>/ línea privada</span></div>
+            <ul class="service-features">
+                <li>Disponible 12:00–14:00h todos los días</li>
+                <li>Tarot, piedras y astrología en vivo</li>
+                <li>También: 910 28 53 23 (citas con Visa)</li>
+            </ul>
+            <a href="tel:806416365" class="service-cta cta-gold">Llamar Ahora</a>
+        </div>
+        <div class="service-card featured reveal">
+            <span class="service-badge badge-new">✨ Nuevo</span>
+            <span class="service-icon">🎥</span>
+            <h3 class="service-name">Videollamada 30 minutos</h3>
+            <p class="service-description">Sesión cara a cara con María. Ideal para una consulta concreta sobre amor, trabajo o tu situación actual.</p>
+            <div class="service-price">45€ <span>/ sesión</span></div>
+            <ul class="service-features">
+                <li>30 min por videollamada</li>
+                <li>Lectura de tarot + piedras</li>
+                <li>Grabación incluida</li>
+                <li>Resumen escrito al finalizar</li>
+            </ul>
+            <a href="#agenda" class="service-cta cta-gold">Reservar</a>
+        </div>
+        <div class="service-card reveal">
+            <span class="service-badge badge-signature">💫 Completa</span>
+            <span class="service-icon">🔮</span>
+            <h3 class="service-name">Sesión Completa 60 minutos</h3>
+            <p class="service-description">La experiencia total. Análisis profundo, tarot, piedras, rituales y guía paso a paso.</p>
+            <div class="service-price">80€ <span>/ sesión</span></div>
+            <ul class="service-features">
+                <li>60 min por videollamada</li>
+                <li>Tarot + piedras + rituales</li>
+                <li>Carta de nacimiento incluida</li>
+                <li>Seguimiento post-consulta</li>
+            </ul>
+            <a href="#agenda" class="service-cta cta-gold">Reservar</a>
+        </div>
+        <div class="service-card reveal">
+            <span class="service-badge badge-signature">⭐ Especial</span>
+            <span class="service-icon">🌟</span>
+            <h3 class="service-name">Carta Astral Completa</h3>
+            <p class="service-description">Análisis profundo de tu mapa natal. Propósito, dones y ciclos del año.</p>
+            <div class="service-price">95€ <span>/ entrega 48h</span></div>
+            <ul class="service-features">
+                <li>PDF de 20+ páginas</li>
+                <li>Planetas, casas y predicciones</li>
+                <li>Videollamada de 20 min incluida</li>
+            </ul>
+            <a href="#agenda" class="service-cta cta-outline">Solicitar</a>
+        </div>
+        <div class="service-card reveal">
+            <span class="service-badge badge-signature">💎 Firma</span>
+            <span class="service-icon">💎</span>
+            <h3 class="service-name">Sesión de Piedras Sagradas</h3>
+            <p class="service-description">La especialidad de María. Tu piedra protectora, activación y ritual personalizado.</p>
+            <div class="service-price">65€ <span>/ sesión</span></div>
+            <ul class="service-features">
+                <li>Lectura energética personalizada</li>
+                <li>Tu piedra según tu carta natal</li>
+                <li>Ritual de activación incluido</li>
+            </ul>
+            <a href="#agenda" class="service-cta cta-gold">Reservar</a>
+        </div>
+        <div class="service-card reveal">
+            <span class="service-badge badge-new">💬 WhatsApp</span>
+            <span class="service-icon">⚡</span>
+            <h3 class="service-name">Consulta Rápida · Bizum</h3>
+            <p class="service-description">15 minutos de consulta exprés por WhatsApp o videollamada. Pago por Bizum.</p>
+            <div class="service-price">35€ <span>/ 15 minutos</span></div>
+            <ul class="service-features">
+                <li>Pago Bizum: 617 708 560</li>
+                <li>Confirmación por WhatsApp</li>
+                <li>Disponible todos los días</li>
+            </ul>
+            <a href="https://wa.me/34617317265?text=Hola%20María%2C%20quiero%20reservar%20una%20consulta%20rápida%20de%2015%20min%20por%20Bizum." target="_blank" class="service-cta cta-wa">WhatsApp</a>
+        </div>
+    </div>
+</section>
+
+<!-- TALISMANES -->
+<section id="talismanes">
+    <div class="section-header reveal">
+        <div class="section-label">Piedras &amp; Talismanes</div>
+        <h2 class="section-title">El Poder de las Piedras Sagradas</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">María lleva 30 años trabajando con el poder de las piedras. Sus talismanes han llegado a deportistas, políticos y personalidades de la televisión.</p>
+    </div>
+    <div class="talismanes-grid">
+        <div class="talismane-card reveal"><span class="talismane-icon">🔮</span><h3 class="talismane-name">Piedra de la Clarividencia</h3><p class="talismane-power">Percepción · Verdad · Claridad mental</p><p class="talismane-desc">Te ayuda a percibir la verdad que se esconde detrás de las palabras. Potencia la claridad mental y desbloquea la mente.</p></div>
+        <div class="talismane-card reveal"><span class="talismane-icon">💜</span><h3 class="talismane-name">Fluorita</h3><p class="talismane-power">Ansiedad · Estrés · Equilibrio</p><p class="talismane-desc">La mejor piedra para la ansiedad y el estrés. Propicia el equilibrio energético y reduce la angustia laboral.</p></div>
+        <div class="talismane-card reveal"><span class="talismane-icon">🖤</span><h3 class="talismane-name">Corazón de Onix</h3><p class="talismane-power">Amor · Protección · Pureza</p><p class="talismane-desc">Talismán específico de protección en el amor. Elimina la negatividad romántica y aleja las relaciones tóxicas.</p></div>
+        <div class="talismane-card reveal"><span class="talismane-icon">🤍</span><h3 class="talismane-name">Corazón de Adulita</h3><p class="talismane-power">Amor · Sanación · Atracción</p><p class="talismane-desc">La piedra del amor por excelencia. Sana las heridas emocionales y potencia la atracción hacia el amor verdadero.</p></div>
+        <div class="talismane-card reveal"><span class="talismane-icon">✨</span><h3 class="talismane-name">Piedra Adulaida</h3><p class="talismane-power">Energía · Elevación · Universal</p><p class="talismane-desc">La madre de todas las piedras. En mano izquierda atrae el amor; en ambas manos amplifica cualquier propósito.</p></div>
+        <div class="talismane-card reveal"><span class="talismane-icon">💛</span><h3 class="talismane-name">Piedra del Oro</h3><p class="talismane-power">Abundancia · Éxito · Prosperidad</p><p class="talismane-desc">Posee un poder infalible para atraer la abundancia económica. Su potencia aumenta si es regalada.</p></div>
+        <div class="talismane-card reveal"><span class="talismane-icon">⚫</span><h3 class="talismane-name">Onix Negro Puro</h3><p class="talismane-power">Protección · Escudo · Pureza</p><p class="talismane-desc">El escudo contra la negatividad. Absorbe la energía negativa y protege contra la envidia y el mal de ojo.</p></div>
+        <div class="talismane-card reveal"><span class="talismane-icon">🌈</span><h3 class="talismane-name">Pulsera 7 Chakras</h3><p class="talismane-power">Armonía · Chakras · Universo</p><p class="talismane-desc">Armoniza la conexión cuerpo-universo regulando el flujo de energía por los 7 chakras. Nunca intercambiar.</p></div>
+    </div>
+    <div style="text-align:center; margin-top:3rem;">
+        <p style="color:var(--text-muted); margin-bottom:1.5rem; font-style:italic;">¿Quieres recibir un talismán de protección de María? <strong style="color:var(--gold)">Suscríbete a nuestra newsletter</strong> y te lo enviamos gratis.</p>
+        <a href="#newsletter" class="btn-primary">💎 Quiero mi Talismán Gratis</a>
+    </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+    <div class="newsletter-box reveal">
+        <span class="newsletter-gift">💎</span>
+        <h2>Recibe tu <span>Talismán de Protección</span> — GRATIS</h2>
+        <p>Suscríbete a la newsletter de María Jacaranda y recibe información exclusiva sobre directos, rituales de luna llena, predicciones y mucho más — además de tu talismán personalizado de bienvenida.</p>
+        <div class="newsletter-perks">
+            <span class="newsletter-perk"><span>💎</span> Talismán gratis de bienvenida</span>
+            <span class="newsletter-perk"><span>🌙</span> Rituales de luna llena</span>
+            <span class="newsletter-perk"><span>📺</span> Avisos de directos</span>
+            <span class="newsletter-perk"><span>⭐</span> Predicciones exclusivas</span>
+            <span class="newsletter-perk"><span>🎁</span> Ofertas especiales</span>
+        </div>
+        <div class="nl-form" id="nl-form">
+            <div class="nl-row">
+                <input type="text" class="nl-input" id="nl-nombre" placeholder="Tu nombre" required>
+                <input type="email" class="nl-input" id="nl-email" placeholder="Tu email" required>
+            </div>
+            <input type="tel" class="nl-input" id="nl-telefono" placeholder="Tu teléfono (para enviarte el talismán)" required>
+            <button class="nl-submit" onclick="subscribeNewsletter()">✦ QUIERO MI TALISMÁN GRATIS ✦</button>
+            <p class="nl-disclaimer">Sin spam. Solo contenido de valor. Puedes darte de baja cuando quieras.</p>
+        </div>
+        <div class="nl-success" id="nl-success">
+            <span class="nl-success-icon">✨</span>
+            <h3>¡Bienvenida a la tribu de María!</h3>
+            <p>Hemos recibido tus datos. María se pondrá en contacto contigo para enviarte tu talismán de protección personalizado. Revisa tu WhatsApp en las próximas horas.</p>
+            <p style="margin-top:1rem; color:var(--gold);">Mientras, síguenos en redes para no perderte los directos 👇</p>
+        </div>
+    </div>
+</section>
+
+<!-- ORACLE -->
+<section id="oraculo">
+    <div class="section-header reveal">
+        <div class="section-label">Consulta Gratuita</div>
+        <h2 class="section-title">El Oráculo de María</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Haz tu pregunta al oráculo y recibe un mensaje del universo</p>
+    </div>
+    <div class="oracle-container reveal">
+        <span class="oracle-crystal">🔮</span>
+        <div class="oracle-panel">
+            <div class="oracle-header">
+                <h2>Oráculo Místico</h2>
+                <p>Las cartas escuchan. El destino responde.</p>
+            </div>
+            <div class="oracle-chat" id="oracle-chat">
+                <div class="oracle-msg">
+                    <div class="oracle-msg-avatar">🔮</div>
+                    <div class="oracle-msg-bubble">Alma inquieta, has llegado al lugar correcto. Las cartas y las piedras sagradas se despiertan ante tu presencia... ¿Qué pregunta llevas en el corazón?</div>
+                </div>
+                <div class="oracle-typing" id="oracle-typing">
+                    <div class="oracle-msg-avatar">🔮</div>
+                    <div class="oracle-dots"><div class="oracle-dot"></div><div class="oracle-dot"></div><div class="oracle-dot"></div></div>
+                </div>
+            </div>
+            <div class="oracle-input-area">
+                <div class="oracle-cats">
+                    <button class="oracle-cat active" onclick="setOracleCat(this,'amor')">💕 Amor</button>
+                    <button class="oracle-cat" onclick="setOracleCat(this,'dinero')">💰 Dinero</button>
+                    <button class="oracle-cat" onclick="setOracleCat(this,'trabajo')">💼 Trabajo</button>
+                    <button class="oracle-cat" onclick="setOracleCat(this,'salud')">🌿 Salud</button>
+                    <button class="oracle-cat" onclick="setOracleCat(this,'familia')">🏠 Familia</button>
+                    <button class="oracle-cat" onclick="setOracleCat(this,'futuro')">✨ Futuro</button>
+                </div>
+                <div class="oracle-input-row">
+                    <textarea class="oracle-input" id="oracle-q" placeholder="Escribe tu pregunta..." maxlength="200" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendOracle()}"></textarea>
+                    <button class="oracle-send" id="oracle-send-btn" onclick="sendOracle()">✦</button>
+                </div>
+                <p class="oracle-limit-note" id="oracle-limit-note">3 consultas gratuitas por sesión</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- RETOS -->
+<section id="retos">
+    <div class="section-header reveal">
+        <div class="section-label">Comunidad</div>
+        <h2 class="section-title">Únete a los Retos de María</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Conecta con tu espiritualidad a través de desafíos en redes sociales</p>
+    </div>
+    <div class="retos-grid">
+        <div class="reto-card reveal"><span class="reto-number">01</span><span class="reto-icon">🃏</span><span class="reto-duration">7 días</span><h3 class="reto-title">Reto: Carta del Día</h3><p class="reto-description">Durante 7 días, cada mañana María saca una carta para ti. Comparte en Instagram con <strong style="color:var(--gold)">#CartaDelDiaJacaranda</strong>.</p><button class="reto-btn" onclick="joinChallenge('Carta del Día','#CartaDelDiaJacaranda')">Unirme al Reto</button></div>
+        <div class="reto-card reveal"><span class="reto-number">02</span><span class="reto-icon">💎</span><span class="reto-duration">21 días</span><h3 class="reto-title">Reto: Piedra Sagrada</h3><p class="reto-description">21 días para conectar con tu piedra protectora. María te guía semana a semana. Comparte con <strong style="color:var(--gold)">#PiedraJacaranda</strong>.</p><button class="reto-btn" onclick="joinChallenge('Piedra Sagrada','#PiedraJacaranda')">Unirme al Reto</button></div>
+        <div class="reto-card reveal"><span class="reto-number">03</span><span class="reto-icon">🌙</span><span class="reto-duration">Luna llena</span><h3 class="reto-title">Reto: Ritual de Luna Llena</h3><p class="reto-description">Cada luna llena, un ritual exclusivo de María para sus seguidores. Comparte con <strong style="color:var(--gold)">#RitualJacaranda</strong>.</p><button class="reto-btn" onclick="joinChallenge('Ritual de Luna Llena','#RitualJacaranda')">Unirme al Reto</button></div>
+    </div>
+</section>
+
+<!-- CHALLENGE MODAL -->
+<div id="challenge-modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal-box">
+        <div class="modal-icon">✨</div>
+        <h3 class="modal-title" id="modal-title"></h3>
+        <p class="modal-text" id="modal-text"></p>
+        <div class="modal-socials">
+            <a href="https://www.instagram.com/mariajacarandaofficial" target="_blank" class="modal-social-btn" style="background:linear-gradient(135deg,#e1306c,#833ab4);">📸 Instagram</a>
+            <a href="https://www.tiktok.com/@mariajacarandaofficial" target="_blank" class="modal-social-btn" style="background:linear-gradient(135deg,#010101,#69C9D0);">🎵 TikTok</a>
+            <a href="https://www.facebook.com/mariajacarandaofficial" target="_blank" class="modal-social-btn" style="background:#1877f2;">📘 Facebook</a>
+        </div>
+        <button class="modal-close" onclick="closeModal()">Cerrar</button>
+    </div>
+</div>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+    <div class="section-header reveal">
+        <div class="section-label">Testimonios</div>
+        <h2 class="section-title">Mis Clientes Hablan por Mí</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Personalidades y personas de a pie que han confiado en María Jacaranda</p>
+    </div>
+    <div class="testimonios-grid">
+        <div class="testimonio-card reveal">
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-text">"El talismán de Onix Puro que María me envió a través de Oscar Horacio de Marbella ha cambiado mi energía por completo. Lo llevo siempre conmigo."</p>
+            <div class="testimonio-author">
+                <div class="testimonio-avatar">👑</div>
+                <div><div class="testimonio-name">Doria Ragland <span class="celebrity-badge">Celebridad</span></div><div class="testimonio-role">Madre de Meghan Markle</div></div>
+            </div>
+        </div>
+        <div class="testimonio-card reveal">
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-text">"Los pendientes hechos con el talismán de María que recibí en la caja regalo de 2021 son únicos. Los llevo en cada aparición importante."</p>
+            <div class="testimonio-author">
+                <div class="testimonio-avatar">📺</div>
+                <div><div class="testimonio-name">Lydia Lozano <span class="celebrity-badge">Televisión</span></div><div class="testimonio-role">Periodista y presentadora</div></div>
+            </div>
+        </div>
+        <div class="testimonio-card reveal">
+            <div class="testimonio-stars">★★★★★</div>
+            <p class="testimonio-text">"Llevaba años buscando respuestas. Una llamada con María lo cambió todo. Su lectura de piedras fue tan precisa que me dejó sin palabras. Totalmente recomendable."</p>
+            <div class="testimonio-author">
+                <div class="testimonio-avatar">🌟</div>
+                <div><div class="testimonio-name">Carmen M.</div><div class="testimonio-role">Clienta desde 2019</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AGENDA -->
+<section id="agenda">
+    <div class="section-header reveal">
+        <div class="section-label">Reservas</div>
+        <h2 class="section-title">Agenda tu Consulta</h2>
+        <div class="section-divider"></div>
+        <p class="section-subtitle">Reserva tu sesión en 3 pasos. María te llamará para confirmar.</p>
+    </div>
+    <div class="agenda-container">
+        <div class="agenda-card reveal">
+            <div class="agenda-steps">
+                <div class="agenda-step active" id="step-tab-1"><span>📅</span>Fecha y hora</div>
+                <div class="agenda-step" id="step-tab-2"><span>📝</span>Tus datos</div>
+                <div class="agenda-step" id="step-tab-3"><span>✅</span>Confirmar</div>
+            </div>
+            <div class="agenda-panels">
+                <div class="agenda-panel active" id="panel-1">
+                    <div class="calendar-header">
+                        <button class="cal-nav" onclick="prevMonth()">‹</button>
+                        <span class="cal-month" id="cal-month-title"></span>
+                        <button class="cal-nav" onclick="nextMonth()">›</button>
+                    </div>
+                    <div class="calendar-grid" id="calendar-grid"></div>
+                    <div class="time-slots" id="time-slots" style="display:none;">
+                        <p class="time-label">Horarios disponibles</p>
+                        <div class="time-grid" id="time-grid"></div>
+                    </div>
+                    <button class="agenda-btn agenda-btn-primary" style="margin-top:1.5rem;width:100%;display:none;" id="btn-next-1" onclick="goToStep(2)">Continuar →</button>
+                </div>
+                <div class="agenda-panel" id="panel-2">
+                    <div class="booking-form">
+                        <div class="form-group"><label class="form-label">Servicio *</label>
+                            <select class="form-select" id="consulta-tipo">
+                                <option value="">Seleccionar...</option>
+                                <option value="Videollamada 30 min — 45€">Videollamada 30 min — 45€</option>
+                                <option value="Sesión Completa 60 min — 80€">Sesión Completa 60 min — 80€</option>
+                                <option value="Carta Astral Completa — 95€">Carta Astral Completa — 95€</option>
+                                <option value="Sesión Piedras Sagradas — 65€">Sesión Piedras Sagradas — 65€</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label class="form-label">Nombre completo *</label><input type="text" class="form-input" id="nombre" placeholder="Tu nombre..."></div>
+                        <div class="form-group"><label class="form-label">Teléfono *</label><input type="tel" class="form-input" id="telefono" placeholder="+34 600 000 000"></div>
+                        <div class="form-group"><label class="form-label">Email *</label><input type="email" class="form-input" id="email" placeholder="tu@email.com"></div>
+                        <div class="form-group"><label class="form-label">¿Sobre qué consultas? (opcional)</label><input type="text" class="form-input" id="tema" placeholder="Amor, trabajo, familia..."></div>
+                        <div style="display:flex;gap:1rem;">
+                            <button class="agenda-btn agenda-btn-back" onclick="goToStep(1)" style="flex:1;">← Volver</button>
+                            <button class="agenda-btn agenda-btn-primary" onclick="confirmBooking()" style="flex:2;">Enviar reserva por WhatsApp →</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="agenda-panel" id="panel-3">
+                    <div style="text-align:center;padding:2rem 0;">
+                        <span style="font-size:4rem;display:block;margin-bottom:1rem;">✨</span>
+                        <h3 style="font-family:'Cinzel',serif;font-size:1.5rem;color:var(--gold);margin-bottom:1rem;">¡Reserva Enviada!</h3>
+                        <p style="color:var(--text-muted);line-height:1.8;margin-bottom:0.5rem;">Tu solicitud ha sido enviada por WhatsApp a María Jacaranda.</p>
+                        <p style="color:var(--text-muted);font-size:0.88rem;">Ella confirmará tu cita en las próximas horas. Si tienes dudas, llama al <strong style="color:var(--gold)">806 41 63 65</strong></p>
+                        <a href="tel:806416365" class="btn-primary" style="margin-top:2rem;">📞 Llamar a María</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+    <div class="section-header reveal">
+        <div class="section-label">Contacto</div>
+        <h2 class="section-title">Conéctate con María</h2>
+        <div class="section-divider"></div>
+    </div>
+    <div class="contact-grid">
+        <div class="contact-info reveal-left">
+            <h3>¿Lista para <span style="color:var(--gold)">tu lectura</span>?</h3>
+            <p>No dejes que las dudas te frenen. María lleva 30 años transformando vidas con la guía del cosmos, las cartas y las piedras sagradas.</p>
+            <div class="contact-items">
+                <div class="contact-item"><div class="contact-item-icon">📞</div><div><div class="contact-item-label">Línea Privada</div><div class="contact-item-value">806 41 63 65</div><div class="contact-item-note">Disponible todos los días · 12:00 – 14:00h</div></div></div>
+                <div class="contact-item"><div class="contact-item-icon">📞</div><div><div class="contact-item-label">Citas con Visa</div><div class="contact-item-value">910 28 53 23</div><div class="contact-item-note">Reservas y pagos con tarjeta</div></div></div>
+                <div class="contact-item"><div class="contact-item-icon">💬</div><div><div class="contact-item-label">WhatsApp</div><div class="contact-item-value">617 317 265</div><div class="contact-item-note">Consultas rápidas y reservas</div></div></div>
+                <div class="contact-item"><div class="contact-item-icon">💳</div><div><div class="contact-item-label">Bizum</div><div class="contact-item-value">617 708 560</div><div class="contact-item-note">35€ · consulta de 15 minutos</div></div></div>
+            </div>
+            <div class="live-schedule">
+                <div class="live-badge"><div class="live-dot"></div>En Directo</div>
+                <h4>Programas Semanales</h4>
+                <p>Cada <strong style="color:var(--gold)">Martes y Jueves de 19:00 a 20:00h</strong> en Instagram y Facebook. ¡Activa notificaciones!</p>
+            </div>
+        </div>
+        <div class="reveal-right">
+            <div class="section-label" style="margin-bottom:1.5rem;">Sígueme en redes</div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/mariajacarandaofficial" target="_blank" class="social-link"><span class="social-link-icon">📸</span><div class="social-link-info"><div class="social-link-name">Instagram</div><div class="social-link-handle">@mariajacarandaofficial · Verificada ✓</div></div><span>→</span></a>
+                <a href="https://www.facebook.com/mariajacarandaofficial" target="_blank" class="social-link"><span class="social-link-icon">📘</span><div class="social-link-info"><div class="social-link-name">Facebook</div><div class="social-link-handle">@mariajacarandaofficial</div></div><span>→</span></a>
+                <a href="https://www.tiktok.com/@mariajacarandaofficial" target="_blank" class="social-link"><span class="social-link-icon">🎵</span><div class="social-link-info"><div class="social-link-name">TikTok</div><div class="social-link-handle">@mariajacarandaofficial</div></div><span>→</span></a>
+                <a href="https://wa.me/34617317265" target="_blank" class="social-link" style="border-color:rgba(37,211,102,0.4);"><span class="social-link-icon">💬</span><div class="social-link-info"><div class="social-link-name" style="color:var(--wa);">WhatsApp</div><div class="social-link-handle">617 317 265 · Escríbeme ahora</div></div><span style="color:var(--wa);">→</span></a>
+                <a href="tel:806416365" class="social-link" style="border-color:rgba(212,175,55,0.5);"><span class="social-link-icon">📞</span><div class="social-link-info"><div class="social-link-name" style="color:var(--gold);">Llamar Ahora</div><div class="social-link-handle">806 41 63 65 · Línea privada</div></div><span style="color:var(--gold);">→</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-logo">MARÍA JACARANDA</div>
+    <p class="footer-tagline">"Tu destino está escrito. Yo te lo leo."</p>
+    <div class="footer-links">
+        <a href="#about">Sobre Mí</a><a href="#servicios">Servicios</a><a href="#talismanes">Talismanes</a>
+        <a href="#oraculo">Oráculo</a><a href="#retos">Retos</a><a href="#agenda">Agenda</a><a href="#contacto">Contacto</a>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+        <p>© 2026 María Jacaranda · Vidente &amp; Astróloga · Todos los derechos reservados</p>
+        <p style="margin-top:0.4rem;">📞 806 41 63 65 · 💬 WhatsApp: 617 317 265 · 🌐 mariajacaranda.es</p>
+        <p style="margin-top:0.8rem;font-size:0.7rem;opacity:0.4;">Las consultas de videncia son de entretenimiento. Consulta profesionales cualificados para decisiones importantes.</p>
+    </div>
+</footer>
+
+<script>
+// ===== CONFIG ORÁCULO =====
+// Si tienes Cloudflare Worker desplegado, pon la URL aquí.
+// Si no, deja vacío y el oráculo usará respuestas predefinidas.
+const WORKER_URL = '';
+
+// ===== STARS =====
+const canvas = document.getElementById('stars-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+function createStars() {
+    stars = [];
+    for (let i = 0; i < 200; i++) stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5+0.2, speed: Math.random()*0.002+0.001, phase: Math.random()*Math.PI*2 });
+}
+function drawStars(t) {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(s => { const a = 0.2+0.7*Math.sin(s.phase+t*s.speed); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,245,200,${a})`; ctx.fill(); });
+    requestAnimationFrame(drawStars);
+}
+resizeCanvas(); createStars(); requestAnimationFrame(drawStars);
+window.addEventListener('resize', () => { resizeCanvas(); createStars(); });
+
+// ===== SCROLL ANIMATIONS =====
+const observer = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); }), { threshold:0.1 });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => observer.observe(el));
+window.addEventListener('scroll', () => { document.getElementById('navbar').style.background = window.scrollY > 50 ? 'rgba(5,0,16,0.98)' : 'rgba(5,0,16,0.92)'; });
+
+// ===== MENU =====
+function toggleMenu() { const m = document.getElementById('mobile-menu'); m.style.display = m.style.display==='block'?'none':'block'; }
+function closeMenu() { document.getElementById('mobile-menu').style.display='none'; }
+
+// ===== NEWSLETTER =====
+function subscribeNewsletter() {
+    const nombre = document.getElementById('nl-nombre').value.trim();
+    const email = document.getElementById('nl-email').value.trim();
+    const tel = document.getElementById('nl-telefono').value.trim();
+    if (!nombre || !email || !tel) { alert('Por favor, rellena todos los campos.'); return; }
+    const msg = encodeURIComponent(`🌟 NUEVA SUSCRIPCIÓN NEWSLETTER\n\nNombre: ${nombre}\nEmail: ${email}\nTeléfono: ${tel}\n\nQuiere recibir su talismán de bienvenida.`);
+    window.open(`https://wa.me/34617317265?text=${msg}`, '_blank');
+    document.getElementById('nl-form').style.display = 'none';
+    document.getElementById('nl-success').style.display = 'block';
+}
+
+// ===== ORACLE =====
+let oracleCat = 'amor';
+let oracleCount = 0;
+const MAX_ORACLE = 3;
+let oracleLoading = false;
+// Historial de las consultas del oráculo — se envía a María con la reserva
+let oracleHistory = []; // [{cat, pregunta, respuesta}, ...]
+
+const oracleResponses = {
+    amor: [
+        "Los Enamorados aparecen en tu tirada, pero con una sombra: hay una elección pendiente que ya no puedes seguir aplazando. La Adulaida —la madre de todas las piedras— te pide que la lleves en tu mano izquierda esta semana, pues algo que has bloqueado emocionalmente necesita salir. Las cartas ven a alguien que piensa en ti más de lo que imaginas... pero hay un obstáculo invisible entre vosotros que solo una lectura completa puede disolver.",
+        "La Torre invertida aparece en el amor: una relación que creías perdida puede resurgir de sus cenizas, pero con condiciones que el universo te pondrá a prueba. El Corazón de Onix te protege de repetir el mismo patrón de siempre. Hay alguien nuevo en tu camino o alguien que regresará en los próximos 40 días... y necesitas saber cuál de los dos es el bueno para ti.",
+        "La Reina de Copas ilumina tu lectura: tu capacidad de amar es inmensa, pero las cartas ven que estás dando más de lo que recibes. La Fluorita —la piedra del equilibrio emocional— necesita estar en tu bolsillo durante 21 días para reajustar esa balanza. Hay una conversación que debes iniciar con valentía, porque de ella depende si esta relación da un paso adelante o se estanca para siempre.",
+        "Venus en retroceso explica la confusión que sientes: lo que ves no es lo real, y lo real aún no lo ves. El Corazón de Adulita, piedra del amor por excelencia, purificará tu campo energético de amores pasados que siguen ocupando espacio que le pertenece a alguien nuevo. Las cartas muestran una fecha concreta que marcará un antes y un después en tu vida amorosa... y María la ve con claridad.",
+        "El Mago aparece en tu tirada: tienes más poder del que crees para transformar tu situación amorosa, pero lo estás usando mal. La Piedra de Clarividencia te ayudará a distinguir entre lo que el otro siente de verdad y lo que te dice para complacerte. Hay una mentira o un silencio en tu entorno sentimental que las cartas detectan... descubrir cuál es puede cambiarlo todo.",
+        "La Luna en tu carta del amor habla de ilusiones y de lo que se oculta bajo la superficie. El Onix Negro Puro forma un escudo entre tú y las energías que drenan tu capacidad de confiar. Las cartas ven dos caminos amorosos activos en tu vida ahora mismo —aunque tú solo seas consciente de uno— y la elección que hagas en los próximos días cerrará uno de ellos para siempre."
+    ],
+    dinero: [
+        "El As de Oros en posición cruzada: la abundancia está disponible para ti, pero hay un canal bloqueado que te impide recibirla. La Piedra del Oro —cuyo poder infalible aumenta si alguien te la regala— necesita estar en tu espacio de trabajo. Las cartas detectan una fuente de ingresos que no estás viendo, y hay alguien en tu entorno que podría abrirte esa puerta sin saberlo.",
+        "La Rueda de la Fortuna gira en tu sector económico: un ciclo de escasez llega a su fin, pero tienes que actuar antes del próximo ciclo lunar o la ventana se cerrará. La Pirita, colocada en la esquina noroeste de tu hogar, activará el flujo que está estancado. Las cartas ven dinero que te deben o un pago retrasado que llegará antes de que acabe este mes.",
+        "Mercurio en tu carta financiera advierte: alguien de tu entorno cercano está interfiriendo —consciente o inconscientemente— en tu prosperidad. La Pulsera de 7 Chakras reequilibrará tu energía económica y cortará esos vínculos parasitarios. Hay una decisión económica que postergaste hace tiempo y que, si la tomas ahora, podría cambiar tu situación en menos de tres meses.",
+        "El Diablo aparece en tu lectura de dinero: estás atado a un patrón de gasto o a una situación económica por miedo, no por lógica. La Citrina —piedra del sol y la abundancia— romperá ese ciclo si la llevas consigo durante el próximo cuarto creciente. Las cartas ven que hay más dinero disponible del que crees, pero hay una creencia limitante profunda que te impide acceder a él.",
+        "El Emperador en tu tirada económica es una señal poderosa: tienes la capacidad de construir algo sólido y duradero, pero te falta un paso estratégico clave. El Ojo de Tigre agudizará tu visión para ver las oportunidades que se disfrazan de obstáculos. Hay una persona o una propuesta que llegará en los próximos 14 días —no la rechaces sin consultarlo antes con alguien que sepa leer bien las señales.",
+        "La Justicia aparece en tu carta financiera: hay una deuda kármica económica —a tu favor— que el universo está a punto de saldar. La Malaquita protege tus finanzas de robos energéticos y personas que se benefician de tu generosidad sin devolver nada. Las cartas ven un cambio de ciclo económico significativo que comenzará en una fecha concreta que María puede precisarte."
+    ],
+    trabajo: [
+        "El Hierofante aparece en tu lectura profesional: estás siguiendo un camino que otros han trazado para ti, no el que el universo tiene reservado para tu talento real. La Sodalita —piedra de la autenticidad y la comunicación— te ayudará a expresar sin miedo lo que realmente vales. Hay una oportunidad laboral que se presentará de forma inesperada en los próximos 30 días, pero solo podrás aprovecharla si has dado un paso previo que aún no has dado.",
+        "El Carro avanza en tu sector profesional, pero hay algo que frena una de sus ruedas. La Cornalina Roja activará tu confianza y te dará la energía para superar ese bloqueo que viene de dentro, no de fuera. Las cartas ven a alguien en tu entorno laboral que aparenta apoyarte pero que en realidad te pone zancadillas —y María puede decirte exactamente quién es y cómo protegerte.",
+        "La Fuerza invertida en tu carta de trabajo: estás siendo demasiado complaciente en un entorno que necesita que te hagas valer. El Lapislázuli te dará la claridad mental para tomar una decisión profesional que llevas semanas evitando. Hay un cambio inminente en tu entorno laboral —una persona se irá o llegará— que reordenará por completo la dinámica, y debes estar preparada para lo que viene.",
+        "La Justicia aparece en tu carta profesional: algo que no te reconocieron en el pasado está a punto de ser reparado. El Ojo de Tigre agudiza tu capacidad de ver las oportunidades donde otros ven obstáculos. Las cartas detectan que hay dos caminos profesionales activos en tu vida ahora mismo y el que parece más seguro no es el que te llevará más lejos.",
+        "Saturno transita por tu décima casa: el esfuerzo que has invertido sin reconocimiento está a punto de dar sus frutos, pero necesitas dar un último empujón. La Fluorita elimina el agotamiento mental y los bloqueos creativos que frenan tu rendimiento. Hay alguien que tiene en sus manos una decisión que te afecta directamente —y María puede decirte cómo inclinar esa balanza a tu favor.",
+        "El Mundo aparece invertido en tu carta de trabajo: estás casi en la meta de algo importante, pero hay una piedra en el camino que no ves. La Cornalina naranja activa la motivación y la perseverancia cuando todo parece estancado. Las cartas ven que antes de fin de año habrá un cambio significativo en tu situación laboral —para bien, pero solo si tomas una acción específica que ahora mismo no estás considerando."
+    ],
+    salud: [
+        "La Luna en tu carta de salud es clara: tu cuerpo está enviando señales que tu mente racional ignora. La Amatista colocada bajo tu almohada durante siete noches abrirá los canales de comunicación entre tu inconsciente y tu sistema nervioso. Las cartas ven un desequilibrio emocional que se está manifestando físicamente —no es grave, pero si no lo atiendes ahora, en tres meses será más difícil de resolver.",
+        "El Ermitaño aparece en tu lectura de salud: necesitas un período de recogimiento y cuidado propio que llevas tiempo postergando. El Cuarzo Transparente amplifica la energía curativa de cualquier tratamiento que estés siguiendo ahora mismo. Las cartas detectan que hay algo que consumes o haces habitualmente —algo aparentemente inofensivo— que está drenando tu vitalidad más de lo que imaginas.",
+        "La Estrella ilumina tu carta de salud: hay una capacidad de recuperación en ti que sorprendería a los que te rodean, pero necesitas activarla conscientemente. La Crisocola equilibra el sistema hormonal y calma el sistema nervioso de forma profunda. Las cartas ven que tienes más energía disponible de la que crees, pero hay un patrón de pensamiento negativo recurrente que la consume antes de que puedas usarla.",
+        "La Sacerdotisa en tu lectura de bienestar: tu intuición sobre tu propio cuerpo es más fiable que cualquier diagnóstico externo ahora mismo. La Serpentina activa los procesos de desintoxicación naturales del cuerpo y abre los meridianos de energía bloqueados. Las cartas ven que hay algo pendiente de resolver en el plano emocional que, si no se trabaja, acabará convirtiéndose en un síntoma físico en los próximos seis meses.",
+        "El Sol aparece en tu carta de salud: hay un período de recuperación y vitalidad que está comenzando, pero necesita un catalizador. La Piedra de Clarividencia te ayudará a escuchar con más claridad lo que tu cuerpo necesita —más de lo que cualquier análisis podría decirte. Las cartas detectan una energía residual de un período de estrés intenso que sigue en tu sistema nervioso aunque la causa ya haya pasado.",
+        "El Juicio aparece en tu lectura: es momento de dejar atrás hábitos que te han acompañado demasiado tiempo y que ya no te sirven. La Fluorita —la mejor piedra para la ansiedad y el estrés— necesita estar en contacto con tu piel durante al menos 21 días para notar el cambio. Las cartas ven que tu cuerpo quiere decirte algo importante sobre tu energía, y que la respuesta está más cerca de lo que crees."
+    ],
+    familia: [
+        "La Emperatriz en tu tirada familiar: hay una figura femenina en tu entorno —madre, hija, hermana— que necesita tu presencia más de lo que muestra. La Selenita colocada en el centro del hogar purificará las energías acumuladas y abrirá espacio para conversaciones que llevan demasiado tiempo silenciadas. Las cartas ven que hay un malentendido familiar que, si no se aclara en los próximos 15 días, echará raíces más profundas.",
+        "El Hierofante aparece en tu lectura de familia: hay una tradición, un patrón o una herida que se repite de generación en generación y que tú tienes el poder de romper. El Cuarzo Ahumado absorbe las cargas energéticas heredadas y las transforma en aprendizaje. Las cartas detectan que hay una persona en tu familia que guarda un secreto que, cuando salga a la luz, cambiará la dinámica de todos.",
+        "La Torre en tu carta familiar no es mala señal: algo que parecía sólido se está desmoronando para dar paso a algo más auténtico. La Turmalina Negra protege el hogar de las energías externas que alteran la paz interior. Las cartas ven que hay una reconciliación posible en tu familia, pero requiere que alguien dé el primer paso... y ese alguien eres tú.",
+        "El Juicio aparece en tu lectura familiar: hay un asunto del pasado —una herencia, un agravio, un alejamiento— que el universo quiere que cierres definitivamente. El Jaspe Rojo ancla la energía familiar y aporta estabilidad cuando todo parece tambalearse. Las cartas ven que antes de que acabe el año habrá un reencuentro o una resolución en tu núcleo familiar que traerá una paz que llevas mucho tiempo esperando.",
+        "Los Enamorados en tu carta familiar hablan de un vínculo que está en un punto de inflexión. La Piedra Luna conecta con los lazos ancestrales y fortalece el amor incondicional que a veces queda enterrado bajo los rencores cotidianos. Las cartas detectan que hay alguien en tu familia que se siente solo y no sabe cómo pedirte que le veas.",
+        "La Fuerza aparece en tu lectura familiar: tienes una fortaleza interior que es el pilar invisible de todos los que te rodean, pero que tú misma no reconoces. La Cornelina activa el amor familiar y restablece los lazos que se han enfriado por la distancia o el silencio. Las cartas ven que hay una situación familiar que requiere que confíes en tu instinto por encima de las opiniones externas."
+    ],
+    futuro: [
+        "La Rueda de la Fortuna gira con fuerza en tu lectura: un ciclo de 7 años llega a su fin y el universo está reconfigurando tu tablero de juego. La Labradorita —piedra de la transformación y la clarividencia— te ayudará a ver las señales que el universo ya te está enviando para que no las ignores. Las cartas ven tres eventos concretos que sucederán en los próximos 12 meses, y el orden en que los afrontes determinará el resultado de todos ellos.",
+        "El Mundo aparece en tu tirada de futuro: estás completando un ciclo mayor de tu vida, aunque por dentro no siempre lo sientas así. La Citrina mantendrá alta tu frecuencia vibratoria durante esta transición para que lo que llegue nuevo sea de la misma calidad que lo que estás dejando. Las cartas ven que hay algo que llevas tiempo esperando que llegará, pero de una forma completamente diferente a como lo imaginabas.",
+        "El Sol brilla en tu carta de futuro, pero hay una nube transitoria que le quita luminosidad. La Adulaida —la madre de todas las piedras— ampliará tu capacidad de recibir lo que el universo tiene preparado para ti. Las cartas ven una oportunidad única que se presentará en los próximos 90 días, y que requerirá que tomes una decisión rápida sin tener toda la información disponible.",
+        "El Carro avanza con determinación en tu futuro: hay una meta que llevas tiempo persiguiendo que está más cerca de lo que crees, pero hay un obstáculo de último momento que podrías no ver llegar. El Ojo de Tigre —piedra de la visión estratégica— te dará la perspectiva para tomar las decisiones correctas en el momento exacto. Las cartas ven una fecha en el próximo trimestre que será decisiva para tu camino.",
+        "La Estrella aparece con intensidad en tu lectura de futuro: hay una esperanza que no debe morir, porque está basada en algo real que el universo ya ha puesto en marcha. La Piedra Lunar activa tu intuición en los momentos de duda para que no te desvíes del camino correcto. Las cartas detectan que hay alguien nuevo que entrará en tu vida en los próximos meses y que traerá consigo algo que llevas mucho tiempo buscando.",
+        "El Juicio aparece en tu futuro: estás en un momento de llamada, de despertar, en el que el universo te pide que tomes una decisión definitiva sobre el rumbo de tu vida. La Turmalina Negra te protege durante los períodos de transición y cambio profundo. Las cartas ven que tienes más poder del que crees para moldear lo que viene —pero hay una ventana de tiempo concreta que no debes dejar pasar."
+    ]
+};
+
+function setOracleCat(btn, cat) {
+    document.querySelectorAll('.oracle-cat').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    oracleCat = cat;
+}
+
+function addOracleMsg(text, isUser) {
+    const chat = document.getElementById('oracle-chat');
+    const typing = document.getElementById('oracle-typing');
+    const row = document.createElement('div');
+    row.className = 'oracle-msg' + (isUser ? ' user-row' : '');
+    if (!isUser) { const av = document.createElement('div'); av.className = 'oracle-msg-avatar'; av.textContent = '🔮'; row.appendChild(av); }
+    const bub = document.createElement('div');
+    bub.className = 'oracle-msg-bubble' + (isUser ? ' user' : '');
+    bub.textContent = text;
+    row.appendChild(bub);
+    chat.insertBefore(row, typing);
+    chat.scrollTop = chat.scrollHeight;
+    return bub;
+}
+
+function addOracleCTA() {
+    const chat = document.getElementById('oracle-chat');
+    const typing = document.getElementById('oracle-typing');
+    const cta = document.createElement('div');
+    cta.className = 'oracle-cta-bubble';
+    cta.innerHTML = `<p>El Oráculo ha revelado solo una parte... María puede ver el cuadro completo.</p><a href="#agenda" class="oracle-cta-btn">Reservar consulta completa →</a>`;
+    chat.insertBefore(cta, typing);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+async function typeWriter(el, text) {
+    for (let i = 0; i < text.length; i++) {
+        el.textContent = text.slice(0, i+1);
+        document.getElementById('oracle-chat').scrollTop = document.getElementById('oracle-chat').scrollHeight;
+        await new Promise(r => setTimeout(r, '.,:!?'.includes(text[i]) ? 55 : 16));
+    }
+}
+
+async function sendOracle() {
+    if (oracleLoading) return;
+    const input = document.getElementById('oracle-q');
+    const q = input.value.trim();
+    if (!q) { input.style.borderColor='var(--pink)'; setTimeout(()=>input.style.borderColor='',2000); return; }
+    if (oracleCount >= MAX_ORACLE) {
+        addOracleMsg('Has recibido tus 3 consultas gratuitas. Para una lectura completa y sin límites, María te espera.', false);
+        addOracleCTA(); return;
+    }
+
+    oracleLoading = true;
+    document.getElementById('oracle-send-btn').disabled = true;
+    input.value = '';
+    addOracleMsg(q, true);
+    document.getElementById('oracle-typing').classList.add('show');
+    document.getElementById('oracle-chat').scrollTop = 9999;
+
+    let respuesta = '';
+
+    if (WORKER_URL) {
+        try {
+            const res = await fetch(WORKER_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({pregunta:q}) });
+            const data = await res.json();
+            if (data.ok && data.respuesta) respuesta = data.respuesta;
+        } catch(e) {}
+    }
+
+    if (!respuesta) {
+        const opts = oracleResponses[oracleCat];
+        // Evitar repetir la última respuesta dada
+        const lastIdx = oracleHistory.length > 0 ? oracleHistory[oracleHistory.length-1]._idx : -1;
+        let idx; do { idx = Math.floor(Math.random()*opts.length); } while (opts.length > 1 && idx === lastIdx);
+        respuesta = opts[idx];
+        oracleHistory.push({ cat: oracleCat, pregunta: q, respuesta, _idx: idx });
+    } else {
+        oracleHistory.push({ cat: oracleCat, pregunta: q, respuesta, _idx: -1 });
+    }
+
+    await new Promise(r => setTimeout(r, 900));
+    document.getElementById('oracle-typing').classList.remove('show');
+    const bub = addOracleMsg('', false);
+    await typeWriter(bub, respuesta);
+    oracleCount++;
+    document.getElementById('oracle-limit-note').textContent = `${MAX_ORACLE - oracleCount} consulta${MAX_ORACLE-oracleCount===1?'':'s'} gratuita${MAX_ORACLE-oracleCount===1?'':'s'} restante${MAX_ORACLE-oracleCount===1?'':'s'}`;
+    setTimeout(addOracleCTA, 600);
+
+    oracleLoading = false;
+    document.getElementById('oracle-send-btn').disabled = false;
+}
+
+// ===== RETOS MODAL =====
+function joinChallenge(name, tag) {
+    document.getElementById('modal-title').textContent = `¡Te has unido al Reto "${name}"!`;
+    document.getElementById('modal-text').textContent = `Comparte tu experiencia en redes con el hashtag ${tag} y etiqueta a @mariajacarandaofficial para aparecer en su perfil.`;
+    document.getElementById('challenge-modal').classList.add('open');
+}
+function closeModal() { document.getElementById('challenge-modal').classList.remove('open'); }
+
+// ===== CALENDAR =====
+let calDate = new Date();
+let selDate = null, selTime = null;
+const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const dias = ['L','M','X','J','V','S','D'];
+const noDisp = ['10:30','13:30','17:00'];
+
+function renderCal() {
+    document.getElementById('cal-month-title').textContent = `${meses[calDate.getMonth()]} ${calDate.getFullYear()}`;
+    const g = document.getElementById('calendar-grid');
+    g.innerHTML = dias.map(d=>`<div class="cal-day-name">${d}</div>`).join('');
+    const first = new Date(calDate.getFullYear(), calDate.getMonth(), 1);
+    let start = first.getDay()-1; if(start<0) start=6;
+    for(let i=0;i<start;i++) g.innerHTML+=`<div class="cal-day"></div>`;
+    const total = new Date(calDate.getFullYear(), calDate.getMonth()+1, 0).getDate();
+    const today = new Date(); today.setHours(0,0,0,0);
+    for(let d=1;d<=total;d++) {
+        const dt = new Date(calDate.getFullYear(), calDate.getMonth(), d);
+        const past = dt<today, sun = dt.getDay()===0;
+        const isToday = dt.toDateString()===today.toDateString();
+        const isSel = selDate && dt.toDateString()===selDate.toDateString();
+        let cls = 'cal-day';
+        if(past||sun) cls+=' disabled';
+        if(isToday) cls+=' today';
+        if(isSel) cls+=' selected';
+        const click = (past||sun) ? '' : `onclick="pickDate(${calDate.getFullYear()},${calDate.getMonth()},${d})"`;
+        g.innerHTML += `<div class="${cls}" ${click}>${d}</div>`;
+    }
+}
+function pickDate(y,m,d) {
+    selDate = new Date(y,m,d); selTime = null; renderCal(); renderTimes();
+    document.getElementById('time-slots').style.display='block';
+    document.getElementById('btn-next-1').style.display='none';
+}
+function renderTimes() {
+    const times = ['10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30'];
+    document.getElementById('time-grid').innerHTML = times.map(t=>{
+        const un = noDisp.includes(t), sel = t===selTime;
+        return `<button class="time-btn${un?' unavailable':''}${sel?' selected':''}" ${un?'disabled':''} onclick="${un?'':("pickTime('"+t+"')")}">${t}</button>`;
+    }).join('');
+}
+function pickTime(t) { selTime=t; renderTimes(); document.getElementById('btn-next-1').style.display='block'; }
+function prevMonth() { calDate=new Date(calDate.getFullYear(),calDate.getMonth()-1,1); renderCal(); }
+function nextMonth() { calDate=new Date(calDate.getFullYear(),calDate.getMonth()+1,1); renderCal(); }
+
+function goToStep(step) {
+    for(let i=1;i<=3;i++) {
+        document.getElementById(`panel-${i}`).classList.toggle('active',i===step);
+        const t = document.getElementById(`step-tab-${i}`); if(t) t.classList.toggle('active',i===step);
+    }
+    document.getElementById('agenda').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function confirmBooking() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const tel = document.getElementById('telefono').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const tipo = document.getElementById('consulta-tipo').value;
+    const tema = document.getElementById('tema').value.trim();
+    if(!nombre||!tel||!email||!tipo) { alert('Por favor, rellena todos los campos obligatorios.'); return; }
+    const fecha = selDate ? selDate.toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'}) : 'Pendiente';
+    const hora = selTime || 'Pendiente';
+
+    // Incluir las primeras 2 consultas del oráculo si las hay
+    let oracleSection = '';
+    const histToSend = oracleHistory.slice(0, 2);
+    if (histToSend.length > 0) {
+        const catLabels = { amor:'💕 Amor', dinero:'💰 Dinero', trabajo:'💼 Trabajo', salud:'🌿 Salud', familia:'🏠 Familia', futuro:'✨ Futuro' };
+        oracleSection = '\n\n━━━━━━━━━━━━━━━━━\n🔮 CONSULTAS PREVIAS AL ORÁCULO\n━━━━━━━━━━━━━━━━━';
+        histToSend.forEach((h, i) => {
+            oracleSection += `\n\n[${catLabels[h.cat] || h.cat}]\nPregunta: "${h.pregunta}"\nOráculo: ${h.respuesta}`;
+        });
+        oracleSection += '\n━━━━━━━━━━━━━━━━━';
+    }
+
+    const msg = encodeURIComponent(
+        `📅 NUEVA RESERVA DE CONSULTA\n\nServicio: ${tipo}\nFecha: ${fecha}\nHora: ${hora}\nNombre: ${nombre}\nTeléfono: ${tel}\nEmail: ${email}${tema?'\nTema: '+tema:''}${oracleSection}\n\n¡Gracias, María! Confirma cuando puedas.`
+    );
+    window.open(`https://wa.me/34617317265?text=${msg}`, '_blank');
+    goToStep(3);
+}
+
+renderCal();
+</script>
+</body>
+</html>
