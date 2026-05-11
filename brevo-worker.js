@@ -62,7 +62,7 @@ const NEWSLETTER_HTML = `<!DOCTYPE html>
       <h3 style="margin:0 0 25px;font-family:'Georgia',serif;font-size:22px;color:#f0e8ff;">El cosmos tiene mensajes para ti</h3>
       <a href="https://paula90146-pixel.github.io/maria-jacaranda-web/#agenda" style="display:inline-block;background:linear-gradient(135deg,#d4af37,#b8962e);color:#000;text-decoration:none;padding:16px 40px;border-radius:50px;font-size:14px;font-weight:bold;letter-spacing:2px;text-transform:uppercase;">✦ RESERVAR MI CONSULTA ✦</a>
       <br><br>
-      <a href="https://wa.me/34602405691" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:12px 30px;border-radius:50px;font-size:13px;font-weight:bold;">💬 WhatsApp 602 405 691</a>
+      <a href="https://wa.me/34674222267" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:12px 30px;border-radius:50px;font-size:13px;font-weight:bold;">💬 WhatsApp 674 22 22 67</a>
     </td>
   </tr>
   <tr>
