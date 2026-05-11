@@ -855,6 +855,7 @@
 // Si tienes Cloudflare Worker desplegado, pon la URL aquí.
 // Si no, deja vacío y el oráculo usará respuestas predefinidas.
 const WORKER_URL = '';
+const BREVO_WORKER_URL = ''; // Pon aquí la URL del Worker de Brevo cuando lo despliegues
 
 // ===== STARS =====
 const canvas = document.getElementById('stars-canvas');
@@ -883,15 +884,42 @@ function toggleMenu() { const m = document.getElementById('mobile-menu'); m.styl
 function closeMenu() { document.getElementById('mobile-menu').style.display='none'; }
 
 // ===== NEWSLETTER =====
-function subscribeNewsletter() {
+async function subscribeNewsletter() {
     const nombre = document.getElementById('nl-nombre').value.trim();
     const email = document.getElementById('nl-email').value.trim();
     const tel = document.getElementById('nl-telefono').value.trim();
     if (!nombre || !email || !tel) { alert('Por favor, rellena todos los campos.'); return; }
-    const msg = encodeURIComponent(`🌟 NUEVA SUSCRIPCIÓN NEWSLETTER\n\nNombre: ${nombre}\nEmail: ${email}\nTeléfono: ${tel}\n\nQuiere recibir su talismán de bienvenida.`);
-    window.open(`https://wa.me/34602405691?text=${msg}`, '_blank');
-    document.getElementById('nl-form').style.display = 'none';
-    document.getElementById('nl-success').style.display = 'block';
+
+    if (BREVO_WORKER_URL) {
+        const btn = document.querySelector('.nl-submit');
+        btn.textContent = 'Enviando...';
+        btn.disabled = true;
+        try {
+            const res = await fetch(BREVO_WORKER_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, email, telefono: tel })
+            });
+            const data = await res.json();
+            if (data.ok) {
+                document.getElementById('nl-form').style.display = 'none';
+                document.getElementById('nl-success').style.display = 'block';
+            } else {
+                alert('Hubo un problema al enviar. Inténtalo de nuevo.');
+                btn.textContent = '✦ QUIERO MI TALISMÁN GRATIS ✦';
+                btn.disabled = false;
+            }
+        } catch(e) {
+            alert('Error de conexión. Inténtalo de nuevo.');
+            btn.textContent = '✦ QUIERO MI TALISMÁN GRATIS ✦';
+            btn.disabled = false;
+        }
+    } else {
+        const msg = encodeURIComponent(`🌟 NUEVA SUSCRIPCIÓN NEWSLETTER\n\nNombre: ${nombre}\nEmail: ${email}\nTeléfono: ${tel}\n\nQuiere recibir su talismán de bienvenida.`);
+        window.open(`https://wa.me/34602405691?text=${msg}`, '_blank');
+        document.getElementById('nl-form').style.display = 'none';
+        document.getElementById('nl-success').style.display = 'block';
+    }
 }
 
 // ===== ORACLE =====
